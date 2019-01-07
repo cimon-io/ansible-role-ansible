@@ -9,6 +9,9 @@
     - python
     - python-pip
     - openssh-client
+  retries: "{{ remote_package_retries }}"
+  register: apt_result
+  until: apt_result is succeeded
   tags:
     - ansible
 
@@ -17,5 +20,8 @@
     name: "ansible"
     state: present
     version: "{{ ansible_version }}"
+  retries: "{{ remote_package_retries }}"
+  register: pip_result
+  until: pip_result is succeeded
   tags:
     - ansible
